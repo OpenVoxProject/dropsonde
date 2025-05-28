@@ -20,7 +20,6 @@ Gem::Specification.new do |s|
   s.add_dependency      "gli"
   s.add_dependency      "httpclient"
   s.add_dependency      "little-plugger"
-  s.add_dependency      "puppet"
   s.add_dependency      "puppet_forge"
   s.add_dependency      "semantic_puppet"
   s.add_dependency      "inifile"
@@ -30,6 +29,11 @@ Gem::Specification.new do |s|
   Dropsonde is a simple telemetry probe designed to run as a regular cron job. It
   will gather metrics defined by self-contained plugins that each defines its own
   partial schema and then gathers the data to meet that schema.
+  desc
+
+  s.post_install_message = <<~desc
+  For portability reasons, this gem no longer depends on Puppet. You will need to
+  install either Puppet or OpenVox gems manually.
   desc
 
 end
