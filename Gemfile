@@ -8,7 +8,7 @@ group :test do
   gem 'rspec-collection_matchers', '~> 1.0'
   gem 'rspec-its', '~> 1.0'
   gem 'rubocop', '~> 1.2'
-  gem 'rubocop-rspec', '~> 2.0'
+  gem 'rubocop-rspec', '~> 3.6'
   gem 'rubocop-rake', '~> 0.5'
   gem 'codecov', '~> 0.1'
   gem 'simplecov', '~> 0.18'
