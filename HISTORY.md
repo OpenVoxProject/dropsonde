@@ -1,24 +1,3 @@
-# Changelog
-
-## [0.1.0](https://github.com/OpenVoxProject/dropsonde/tree/0.1.0) (2025-06-10)
-
-[Full Changelog](https://github.com/OpenVoxProject/dropsonde/compare/v0.0.8...0.1.0)
-
-**Breaking changes:**
-
-- remove and abstract Puppet dependency; manually require the gem you want to use [\#1](https://github.com/OpenVoxProject/dropsonde/pull/1) ([binford2k](https://github.com/binford2k))
-
-**Fixed bugs:**
-
-- Fix a couple nil references [\#5](https://github.com/OpenVoxProject/dropsonde/pull/5) ([binford2k](https://github.com/binford2k))
-- fix broken acceptance test [\#4](https://github.com/OpenVoxProject/dropsonde/pull/4) ([binford2k](https://github.com/binford2k))
-
-**Merged pull requests:**
-
-- dependabot: check for github actions and bundler [\#6](https://github.com/OpenVoxProject/dropsonde/pull/6) ([bastelfreak](https://github.com/bastelfreak))
-- workflow housekeeping [\#3](https://github.com/OpenVoxProject/dropsonde/pull/3) ([binford2k](https://github.com/binford2k))
-- No need to run specs nightly [\#2](https://github.com/OpenVoxProject/dropsonde/pull/2) ([binford2k](https://github.com/binford2k))
-
 ## [v0.0.8](https://github.com/puppetlabs/dropsonde/tree/0.0.8) (2022-08-29)
 
 [Full Changelog](https://github.com/puppetlabs/dropsonde/compare/v0.0.7...0.0.8)
