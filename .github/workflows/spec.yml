@@ -7,13 +7,12 @@ on:
 jobs:
   Spec:
     name: "Spec Tests (Ruby: ${{matrix.ruby_version}})"
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
         ruby_version:
-          - 2.5
-          - 2.6
+          - 3.2
           - 2.7
 
     env:

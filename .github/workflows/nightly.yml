@@ -7,11 +7,12 @@ on:
 jobs:
   Acceptance:
     name: Acceptance Tests
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
         ruby_version:
+          - 3.2
           - 2.7
 
     env:
