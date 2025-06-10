@@ -4,7 +4,12 @@ require 'json'
 require 'httpclient'
 require 'puppetdb'
 require 'inifile'
-require 'puppet'
+
+begin
+  require 'puppet'
+rescue LoadError
+  raise 'Please install either Puppet or OpenVox gem to use this tool.'
+end
 
 # This class handles caching module process, generate reports,
 # fetchs all plugins defined in lib/dropsonde/metrics and also
@@ -14,6 +19,9 @@ class Dropsonde
   require 'dropsonde/metrics'
   require 'dropsonde/monkeypatches'
   require 'dropsonde/version'
+
+  # This class abstracts the endpoint we submit to.
+  class Dropsonde::Submitter; end
 
   def self.puppet_settings_overrides
     overrides = []
@@ -75,33 +83,13 @@ class Dropsonde
     end
   end
 
-  def self.submit_report(endpoint, port)
-    client = HTTPClient.new
-
-    # The httpclient gem ships with some expired CA certificates.
-    # This causes us to load the certs shipped with whatever
-    # Ruby is used to execute this gem's commands, which are generally
-    # more up-to-date, especially if using puppet-agent's Ruby.
-    #
-    # Note that this is no-op with Windows system Ruby.
-    client.ssl_config.set_default_paths
-
-    result = client.post("#{endpoint}:#{port}",
-                         header: { 'Content-Type' => 'application/json' },
-                         body: Dropsonde::Metrics.new.report.to_json)
-
-    if result.status == 200
-      data = JSON.parse(result.body)
-      if data['newer']
-        puts 'A newer version of the telemetry client is available:'
-        puts "  -- #{data['link']}"
-      else
-        puts data['message']
-      end
+  def self.submit_report(options)
+    if Puppet.respond_to?(:implementation) && Puppet.implementation == 'openvox'
+      require 'dropsonde/submitter/open_telemetry'
+      Dropsonde::Submitter::OpenTelemetry.submit_report(options)
     else
-      puts 'Failed to submit report'
-      puts JSON.pretty_generate(result.body) if Dropsonde.settings[:verbose]
-      exit 1
+      require 'dropsonde/submitter/dujour'
+      Dropsonde::Submitter::Dujour.submit_report(options)
     end
   end
 

@@ -94,7 +94,7 @@ RSpec.describe Dropsonde do
         body: telemetry_report,
       ).and_return(response1)
 
-      expect { described_class.submit_report('example.com', 1234) }.not_to raise_error
+      expect { described_class.submit_report({ endpoint: 'example.com', port: 1234 }) }.not_to raise_error
     end
 
     it 'submit_report without errors' do
@@ -108,7 +108,7 @@ RSpec.describe Dropsonde do
         body: telemetry_report,
       ).and_return(response2)
 
-      expect { described_class.submit_report('example.com', 1234) }.not_to raise_error
+      expect { described_class.submit_report({ endpoint: 'example.com', port: 1234 }) }.not_to raise_error
     end
 
     it 'submit_report and receive response 500 - internal server error' do
@@ -123,7 +123,7 @@ RSpec.describe Dropsonde do
       ).and_return(response3)
 
       begin
-        described_class.submit_report('example.com', 1234)
+        described_class.submit_report({ endpoint: 'example.com', port: 1234 })
       rescue SystemExit => e
         expect(e.status).to eq(1)
       end

@@ -69,14 +69,14 @@ class Dropsonde
   desc 'Submit a telemetry report'
   command :submit do |c|
     c.desc 'Telemetry endpoint'
-    c.flag [:endpoint], :default_value => 'https://updates.puppet.com'
+    c.flag [:endpoint]
 
     c.desc 'Telemetry port'
-    c.flag [:port], :default_value => 443, :type => Integer
+    c.flag [:port], :type => Integer
 
     c.action do |global, options, args|
       @cache.autoupdate
-      Dropsonde.submit_report(options[:endpoint], options[:port])
+      Dropsonde.submit_report(options)
     end
   end
 
