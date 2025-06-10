@@ -52,7 +52,7 @@ class Dropsonde::Metrics
 
   def schema
     schema = skeleton_schema
-    Dropsonde::Metrics.plugins.each do |_name, plugin|
+    Dropsonde::Metrics.plugins.each_value do |plugin|
       schema.concat(sanity_check_schema(plugin))
     end
     check_for_duplicates(schema)
@@ -62,7 +62,7 @@ class Dropsonde::Metrics
   def preview(puppetdb_session = nil)
     str = "                      Puppet Telemetry Report Preview\n"
     str += "                      ===============================\n\n"
-    Dropsonde::Metrics.plugins.each do |_name, plugin|
+    Dropsonde::Metrics.plugins.each_value do |plugin|
       schema = plugin.schema
 
       plugin.setup if plugin.respond_to? :setup
@@ -91,7 +91,7 @@ class Dropsonde::Metrics
 
   def report(puppetdb_session = nil)
     snapshots = {}
-    Dropsonde::Metrics.plugins.each do |_name, plugin|
+    Dropsonde::Metrics.plugins.each_value do |plugin|
       plugin.setup
       sanity_check_data(plugin, plugin.run(puppetdb_session)).each do |row|
         snapshots[row.keys.first] = {
@@ -115,7 +115,7 @@ class Dropsonde::Metrics
     results[:ip]         = IPAddr.new(rand(2**32), Socket::AF_INET)
     results.delete(:'self-service-analytics')
 
-    Dropsonde::Metrics.plugins.each do |_name, plugin|
+    Dropsonde::Metrics.plugins.each_value do |plugin|
       sanity_check_data(plugin, plugin.example).each do |row|
         results.merge!(row)
       end

@@ -1,6 +1,8 @@
 ---
 require: rubocop-rspec
 inherit_from: .rubocop_todo.yml
+plugins:
+  - rubocop-capybara
 AllCops:
   TargetRubyVersion: '2.5'
   Include:
@@ -65,6 +67,12 @@ Style/TrailingCommaInArguments:
 Style/SymbolArray:
   Description: Using percent style obscures symbolic intent of array's contents.
   EnforcedStyle: brackets
+Style/RedundantReturn:
+  Description: Clarity around what is being returned is often useful.
+  Enabled: false
+Layout/FirstArrayElementIndentation:
+  Description: Deep indentation becomes unreadable.
+  EnforcedStyle: consistent
 Layout/EndOfLine:
   Enabled: false
 Style/CollectionMethods:
@@ -167,7 +175,7 @@ Style/HashTransformKeys:
 Style/HashTransformValues:
   Enabled: true
 
-RSpec/FactoryBot/CreateList:
+FactoryBot/CreateList:
   Description: "errors nastily on rubocop-rspec 1.42.0 and is not relevant to us anyways"
   Enabled: false
 
