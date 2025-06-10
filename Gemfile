@@ -18,12 +18,9 @@ end
 
 group :development do
   gem 'github_changelog_generator'
-  gem 'honeycomb-beeline'
   gem 'pry'
   gem 'yard'
 end
-
-gem 'bigdecimal', '= 1.4.2', :require => false
 
 # Evaluate Gemfile.local and ~/.gemfile if they exist
 extra_gemfiles = [
