@@ -4,6 +4,9 @@ on:
   workflow_dispatch:
   pull_request:
 
+permissions:
+  contents: read # minimal permissions that we have to grant
+
 jobs:
   Spec:
     name: "Spec Tests (Ruby: ${{matrix.ruby_version}})"

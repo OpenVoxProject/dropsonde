@@ -2,6 +2,9 @@ name: "PR Testing"
 
 on: [pull_request]
 
+permissions:
+  contents: read # minimal permissions that we have to grant
+
 jobs:
   Acceptance:
     name: Acceptance Tests
