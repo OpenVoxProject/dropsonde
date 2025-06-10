@@ -4,6 +4,9 @@ on:
   schedule:
     - cron: '0 0 * * *'
 
+permissions:
+  contents: read # minimal permissions that we have to grant
+
 jobs:
   Acceptance:
     name: Acceptance Tests
