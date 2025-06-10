@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This uses Puppet's standard Dujour telemetry endpoint.
 # It currently expects a report formatted precisely to meet Dujour's odd schema.
 # At some point, we'll define our own report format and this submitter will
@@ -5,7 +7,6 @@
 #
 # This is currently the only operational submitter.
 class Dropsonde::Submitter::Dujour
-
   def self.submit_report(options)
     client = HTTPClient.new
 
@@ -38,5 +39,4 @@ class Dropsonde::Submitter::Dujour
       exit 1
     end
   end
-
 end

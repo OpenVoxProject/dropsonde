@@ -8,7 +8,7 @@ require 'inifile'
 begin
   require 'puppet'
 rescue LoadError
-  fail "Please install either Puppet or OpenVox gem to use this tool."
+  raise 'Please install either Puppet or OpenVox gem to use this tool.'
 end
 
 # This class handles caching module process, generate reports,
@@ -91,7 +91,6 @@ class Dropsonde
       require 'dropsonde/submitter/dujour'
       Dropsonde::Submitter::Dujour.submit_report(options)
     end
-
   end
 
   def self.generate_example(size, filename)
