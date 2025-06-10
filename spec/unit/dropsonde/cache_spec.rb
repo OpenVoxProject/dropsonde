@@ -42,7 +42,7 @@ RSpec.describe Dropsonde::Cache do
     dropsonde_cache.autoupdate
   end
 
-  it 'will autoupdate after ttl has expired' do
+  it 'autoupdates after ttl has expired' do
     cache = {
       'timestamp' => '2000-1-1', # long before any puppet modules were released!
       'modules' => %w[a b c],
@@ -50,7 +50,7 @@ RSpec.describe Dropsonde::Cache do
 
     expect(File).to receive(:file?).with(%r{foo/forge.json}).and_return(true)
     expect(File).to receive(:read).with(%r{foo/forge.json}).and_return(cache.to_json)
-    expect(File).to receive(:mtime).with(%r{foo/forge.json}).and_return((Date.today - 8))
+    expect(File).to receive(:mtime).with(%r{foo/forge.json}).and_return(Date.today - 8)
 
     expect(File).to receive(:file?).with(%r{foo/forge.json}).and_return(true)
     expect(dropsonde_cache).to receive(:update).and_return(true)

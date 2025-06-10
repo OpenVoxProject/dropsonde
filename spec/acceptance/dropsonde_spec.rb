@@ -19,7 +19,7 @@ RSpec.describe 'Dropsonde Acceptance: Basic' do
   end
 
   context 'when update' do
-    it 'works' do
+    it 'caches Forge modules properly' do
       Dropsonde::Cache.new('foo', 7, true)
     end
   end
@@ -31,19 +31,19 @@ RSpec.describe 'Dropsonde Acceptance: Basic' do
       Dropsonde.settings = { enable: %w[dependencies modules] }
       allow(puppetdb_session.puppet_db).to receive(:request).with('', 'resources[type, title] { type = "Class" }').and_return(
         OpenStruct.new(data: [
-                         { 'type' => 'Class', 'title' => 'Mysql::Params' },
-                         { 'type' => 'Class', 'title' => 'Mysql::Server::Account_security' },
-                         { 'type' => 'Class', 'title' => 'Role::Database_server' },
-                         { 'type' => 'Class', 'title' => 'Mysql::Server::Install' },
-                         { 'type' => 'Class', 'title' => 'Mysql::Server::Providers' },
-                         { 'type' => 'Class', 'title' => 'My_private_module' },
-                         { 'type' => 'Class', 'title' => 'Mysql::Server::Managed_dirs' },
-                         { 'type' => 'Class', 'title' => 'Profile::Scr_mysql' },
-                         { 'type' => 'Class', 'title' => 'Mysql::Server' },
-                         { 'type' => 'Class', 'title' => 'Profile::Base' },
-                         { 'type' => 'Class', 'title' => 'Mysql::Server::Config' },
-                         { 'type' => 'Class', 'title' => 'Mysql::Server::Service' },
-                       ]),
+          { 'type' => 'Class', 'title' => 'Mysql::Params' },
+          { 'type' => 'Class', 'title' => 'Mysql::Server::Account_security' },
+          { 'type' => 'Class', 'title' => 'Role::Database_server' },
+          { 'type' => 'Class', 'title' => 'Mysql::Server::Install' },
+          { 'type' => 'Class', 'title' => 'Mysql::Server::Providers' },
+          { 'type' => 'Class', 'title' => 'My_private_module' },
+          { 'type' => 'Class', 'title' => 'Mysql::Server::Managed_dirs' },
+          { 'type' => 'Class', 'title' => 'Profile::Scr_mysql' },
+          { 'type' => 'Class', 'title' => 'Mysql::Server' },
+          { 'type' => 'Class', 'title' => 'Profile::Base' },
+          { 'type' => 'Class', 'title' => 'Mysql::Server::Config' },
+          { 'type' => 'Class', 'title' => 'Mysql::Server::Service' },
+        ]),
       )
       plugins = Dropsonde::Metrics.new.report(puppetdb_session)[:'self-service-analytics'][:snapshots]
       modules = plugins[:modules]['value'].map { |mod| mod[:name] }.sort

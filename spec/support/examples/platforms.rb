@@ -48,19 +48,19 @@ RSpec.shared_examples 'platforms_spec' do |plugin, plugin_name|
       ],
     )
     expect(plugin.run(puppetdb_session)).to eq([
-                                                 class_platforms: [
-                                                   {
-                                                     count: 1,
-                                                     name: 'ModuleA::Foo',
-                                                     platform: 'linux',
-                                                   },
-                                                   {
-                                                     count: 1,
-                                                     name: 'ModuleB::Bar',
-                                                     platform: 'windows',
-                                                   },
-                                                 ],
-                                               ])
+      class_platforms: [
+        {
+          count: 1,
+          name: 'ModuleA::Foo',
+          platform: 'linux',
+        },
+        {
+          count: 1,
+          name: 'ModuleB::Bar',
+          platform: 'windows',
+        },
+      ],
+    ])
   end
 
   it 'generates an example' do
