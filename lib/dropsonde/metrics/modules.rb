@@ -128,7 +128,7 @@ class Dropsonde::Metrics::Modules
       end
     }.flatten.compact.uniq
 
-    if puppetdb_session
+    if puppetdb_session.puppet_db
       # classes and how many nodes they're enforced on
       results = puppetdb_session.puppet_db.request('', 'resources[type, title] { type = "Class" }').data
 

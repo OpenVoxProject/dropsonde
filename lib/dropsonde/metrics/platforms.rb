@@ -54,7 +54,7 @@ class Dropsonde::Metrics::Platforms
 
   def self.run(puppetdb_session = nil)
     # skip this metric if we don't have an active PuppetDB connection
-    return unless puppetdb_session
+    return unless puppetdb_session.puppet_db
 
     classes = puppetdb_session.puppet_db.request('', 'resources[certname, title] { type = "Class" }').data
     facts   = puppetdb_session.puppet_db.request('', 'facts[certname, value] { name = "osfamily" }').data
