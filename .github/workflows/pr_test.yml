@@ -21,7 +21,7 @@ jobs:
           echo "SANITIZED_RUBY_VERSION=$(echo '${{ matrix.ruby_version }}' | sed 's/~> //g')" >> $GITHUB_ENV
 
       - name: Checkout Source
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: "Activate Ruby ${{ matrix.ruby_version }}"
         uses: ruby/setup-ruby@v1
