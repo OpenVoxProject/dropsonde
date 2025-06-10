@@ -8,8 +8,11 @@ task :default do
   system("rake -T")
 end
 
-task :changelog do
-  system("github_changelog_generator -u puppetlabs -p dropsonde --future-release #{Dropsonde::VERSION}")
+require 'github_changelog_generator/task'
+GitHubChangelogGenerator::RakeTask.new :changelog do |config|
+  config.user = 'OpenVoxProject'
+  config.project = 'dropsonde'
+  config.future_release = Dropsonde::VERSION
 end
 
 require 'rspec/core/rake_task'
