@@ -4,10 +4,6 @@ on:
   schedule:
     - cron: '0 0 * * *'
 
-env:
-  HONEYCOMB_WRITEKEY: 7f3c63a70eecc61d635917de46bea4e6
-  HONEYCOMB_DATASET: litmus tests
-
 jobs:
   Acceptance:
     name: Acceptance Tests
@@ -19,25 +15,11 @@ jobs:
           - 2.7
 
     env:
-      BUILDEVENT_FILE: '../buildevents.txt'
       RVM_GEM_VERSION: ${{ matrix.ruby_version }}
 
     steps:
       - run: |
           echo "SANITIZED_RUBY_VERSION=$(echo '${{ matrix.ruby_version }}' | sed 's/~> //g')" >> $GITHUB_ENV
-      - run: |
-          echo 'ruby_version=${{ env.SANITIZED_RUBY_VERSION }}' >> $BUILDEVENT_FILE
-      - name: "Honeycomb: Start first step"
-        run: |
-          echo "STEP_ID=${{ env.SANITIZED_RUBY_VERSION }}-spec" >> $GITHUB_ENV
-          echo STEP_START=$(date +%s) >> $GITHUB_ENV
-      - name: "Honeycomb: Start recording"
-        uses: puppetlabs/kvrhdn-gha-buildevents@pdk-templates-v1
-        with:
-          apikey: ${{ env.HONEYCOMB_WRITEKEY }}
-          dataset: ${{ env.HONEYCOMB_DATASET }}
-          job-status: ${{ job.status }}
-          matrix-key: ${{ env.SANITIZED_RUBY_VERSION }}
 
       - name: Checkout Source
         uses: actions/checkout@v2
@@ -51,15 +33,16 @@ jobs:
       - name: Print bundle environment
         run: |
           echo ::group::bundler environment
-          buildevents cmd $TRACE_ID $STEP_ID 'bundle env' -- bundle env
+          bundle env
           echo ::endgroup::
+
       - name: bundle install
         run: |
-          buildevents cmd $TRACE_ID $STEP_ID 'bundle install' -- bundle install
+          bundle install
 
       - name: Run Acceptance Tests
         run: |
-          buildevents cmd $TRACE_ID $STEP_ID 'bundle exec rake dropsonde:acceptance' -- bundle exec rake dropsonde:acceptance
+          bundle exec rake dropsonde:acceptance
 
   slack-workflow-status:
     if: always()
