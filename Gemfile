@@ -6,7 +6,7 @@ group :test do
   gem 'rake', '>= 10.0'
   gem 'rspec', '~> 3.0'
   gem 'rspec-collection_matchers', '~> 1.0'
-  gem 'rspec-its', '~> 1.0'
+  gem 'rspec-its', '~> 2.0'
   gem 'rubocop', '~> 1.2'
   gem 'rubocop-rspec', '~> 2.0'
   gem 'rubocop-rake', '~> 0.5'
